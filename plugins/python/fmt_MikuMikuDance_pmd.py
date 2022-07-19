@@ -1,7 +1,7 @@
 # Modified from: https://github.com/atrzaska/noesis_py/blob/master/lib/plugins/fmt_MikuMikuDance_pmd.py
 # (Latest commit 08a638a on Nov 23, 2017)
 # Required Sanae3D in the same location
-# Update 2022/07/19: Rotate model to front, and fix textures not displaying
+# *Update 2022/07/19: Rotate model to front, and fix textures not displaying
 
 from inc_noesis import *
 import noesis
@@ -52,6 +52,7 @@ class MikuMikuDance_PMD(SanaeObject):
 
         vertBuff = self.inFile.readBytes(38*numVerts)
         
+        # rotate model to front
         trans = NoeMat43((NoeVec3((1.0, 0.0, 0.0)), NoeVec3((0.0, 1.0, 0.0)), NoeVec3((0.0, 0.0, -1.0)), NoeVec3((0.0, 0.0, 0.0))))
         rapi.rpgSetTransform(trans)
         rapi.rpgSetOption(noesis.RPGOPT_TRIWINDBACKWARD, 1)
