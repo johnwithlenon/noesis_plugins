@@ -1,4 +1,5 @@
 # Modified from: https://github.com/atrzaska/noesis_py/blob/master/lib/plugins/fmt_MikuMikuDance_pmx.py
+# (Latest commit fd94e8c on Mar 22, 2021)
 # 
 # https://gist.github.com/felixjones/f8a06bd48f9da9a4539f
 # https://gist.github.com/felixjones/8ad4a1e50bbced75b46b
