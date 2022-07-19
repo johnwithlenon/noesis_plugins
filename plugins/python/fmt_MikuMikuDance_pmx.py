@@ -1,8 +1,7 @@
 # Modified from: https://github.com/atrzaska/noesis_py/blob/master/lib/plugins/fmt_MikuMikuDance_pmx.py
 # (Latest commit fd94e8c on Mar 22, 2021)
-# 
-# 2022/07/19: Rotate model to front, and fix textures which are inside a sub folder
-#
+# Update 2022/07/19: Rotate model to front, and fix textures which are inside a sub folder
+# # # #
 # https://gist.github.com/felixjones/f8a06bd48f9da9a4539f
 # https://gist.github.com/felixjones/8ad4a1e50bbced75b46b
 # TODO: implement pmx 2.1 softBodies
