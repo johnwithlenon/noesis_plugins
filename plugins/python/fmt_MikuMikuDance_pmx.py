@@ -3,6 +3,7 @@
 # *Update 2022/07/19:
 #   - Rotate model to front, and fix textures inside a subfolder not displaying
 #   - Fix wrong reading of additional UVs
+#   - Fix wrong textures if the model has duplicate material name
 # # # #
 # https://gist.github.com/felixjones/f8a06bd48f9da9a4539f
 # https://gist.github.com/felixjones/8ad4a1e50bbced75b46b
@@ -241,13 +242,30 @@ class PmxLoader:
 
         # textures
         textureCount = bs.readInt()
-        textures = []
+
         for i in range(textureCount):
-            fileName = self.readText().replace('\\', '/')
-            folderName = rapi.getDirForFilePath(rapi.getInputName())
-            folderName = folderName.replace('\\', '/')
-            textures.append(folderName + fileName)
-            
+            texName = self.readText().replace('\\', '/')
+            texShortName = ''
+            cut = texName.split('/')
+            if len(cut) > 1:
+                texShortName = cut[-1]
+            else:
+                texShortName = cut[0]  
+            try:
+                filename, ext = os.path.splitext(texName)
+                f = open(rapi.getDirForFilePath(rapi.getInputName()) + texName, 'rb')
+                tex = rapi.loadTexByHandler(f.read(), ext)
+                if tex is not None:
+                    tex.name = texShortName
+                    self.texList.append(tex)
+                else:
+                    tex = NoeTexture(texShortName, 0, 0, 0, 0)
+                    self.texList.append(tex)                    
+            except:
+                print("Couldn't find file: %s" %texName)
+                tex = NoeTexture(texShortName, 0, 0, 0, 0)
+                self.texList.append(tex)
+        
         # materials
         materialCount = bs.readInt()
         startOffset = 0
@@ -275,7 +293,7 @@ class PmxLoader:
             memo = self.readText()
             matFaceCount = bs.readInt()
 
-            material = NoeMaterial(name, textures[textureIndex])
+            material = NoeMaterial(str(i)+'-'+name, self.texList[textureIndex].name)
             self.matList.append(material)
             dataSize = self.vertexIndexSize * matFaceCount
             endOffset = startOffset + dataSize
@@ -289,7 +307,7 @@ class PmxLoader:
             rapi.rpgBindPositionBufferOfs(vertices, noesis.RPGEODATA_FLOAT, 12, 0)
             rapi.rpgBindNormalBufferOfs(normals, noesis.RPGEODATA_FLOAT, 12, 0)
             rapi.rpgBindUV1BufferOfs(uvs, noesis.RPGEODATA_FLOAT, 8, 0)
-            rapi.rpgSetMaterial(name)
+            rapi.rpgSetMaterial(str(i)+'-'+name)
             rapi.rpgCommitTriangles(currentFaces, INDICES_TYPES[self.vertexIndexSize], matFaceCount, noesis.RPGEO_TRIANGLE, 1)
             startOffset += self.vertexIndexSize * matFaceCount
 
