@@ -4,6 +4,7 @@
 #   - Rotate model to front, and fix textures inside a subfolder not displaying
 #   - Fix wrong reading of additional UVs
 #   - Fix wrong textures if the model has duplicate material name
+#   - Fix textures not displaying if the path has unicode string
 # # # #
 # https://gist.github.com/felixjones/f8a06bd48f9da9a4539f
 # https://gist.github.com/felixjones/8ad4a1e50bbced75b46b
