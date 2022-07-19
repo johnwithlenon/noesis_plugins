@@ -1,6 +1,8 @@
 # Modified from: https://github.com/atrzaska/noesis_py/blob/master/lib/plugins/fmt_MikuMikuDance_pmx.py
 # (Latest commit fd94e8c on Mar 22, 2021)
-# Update 2022/07/19: Rotate model to front, and fix textures inside a subfolder not displaying
+# *Update 2022/07/19:
+#   - Rotate model to front, and fix textures inside a subfolder not displaying
+#   - Fix wrong reading of additional UVs
 # # # #
 # https://gist.github.com/felixjones/f8a06bd48f9da9a4539f
 # https://gist.github.com/felixjones/8ad4a1e50bbced75b46b
@@ -56,6 +58,7 @@ def registerNoesisTypes():
     handle = noesis.register('Miku Miku Dance PMX', '.pmx')
     noesis.setHandlerTypeCheck(handle, checkType)
     noesis.setHandlerLoadModel(handle, loadModel)
+    #noesis.logPopup()
     return 1
 
 def checkType(data):
@@ -181,7 +184,9 @@ class PmxLoader:
             position = bs.readBytes(12)
             normal = bs.readBytes(12)
             uv = bs.readBytes(8)
-            appendixUV = bs.readBytes(4 * self.appendixUVSize)
+            appendixUV = []
+            for i in range(self.appendixUVSize):
+                appendixUV.append(bs.readBytes(16))
             weightTypeId = bs.readByte()
 
             # 0 = BDEF1, 1 = BDEF2, 2 = BDEF4, 4 = SDEF
@@ -276,6 +281,7 @@ class PmxLoader:
             endOffset = startOffset + dataSize
             currentFaces = facesData[startOffset:endOffset]
             
+            # rotate model to front
             trans = NoeMat43((NoeVec3((1.0, 0.0, 0.0)), NoeVec3((0.0, 1.0, 0.0)), NoeVec3((0.0, 0.0, -1.0)), NoeVec3((0.0, 0.0, 0.0))))
             rapi.rpgSetTransform(trans)
             rapi.rpgSetOption(noesis.RPGOPT_TRIWINDBACKWARD, 1)
@@ -342,7 +348,7 @@ class PmxLoader:
                     if hasLimits == 1:
                         angleLimitMin = self.readVec3()
                         angleLimitMax = self.readVec3()
-            
+
         # morphs
         morphCount = bs.readInt()
         for i in range(morphCount):
