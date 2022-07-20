@@ -1,3 +1,4 @@
+# WARRNING!!! THIS IS FOR VIEWING ONLY! DON'T EXPORT BECAUSE IT CAN DESTROY YOUR ORIGINAL TEXTURES!!!
 # Modified from: https://github.com/atrzaska/noesis_py/blob/master/lib/plugins/fmt_MikuMikuDance_pmx.py
 # (Latest commit fd94e8c on Mar 22, 2021)
 # *Update 2022/07/19:
