@@ -1,7 +1,7 @@
 Noesis plugins
 <br/>
 <ul>
-<li><a href="https://github.com/johnwithlenon/noesis_plugins/blob/main/plugins/python/fmt_MikuMikuDance_pmx.py" target="_blank">fmt_MikuMikuDance_pmx.py</a>: Noesis plugin to view PMX file of MMD model (Miku Miku Dance)
+<li><a href="https://github.com/johnwithlenon/noesis_plugins/blob/main/plugins/python/fmt_MikuMikuDance_pmx.py" target="_blank">fmt_MikuMikuDance_pmx.py</a>: Noesis script to view PMX file of MMD model (Miku Miku Dance)
 <br/>
 (modified from <a href="https://github.com/atrzaska/noesis_py/blob/master/lib/plugins/fmt_MikuMikuDance_pmx.py" target="_blank">noesis_py repo by atrzaska</a>)
 <br/>
