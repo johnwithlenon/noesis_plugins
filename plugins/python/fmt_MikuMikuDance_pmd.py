@@ -2,11 +2,11 @@
 # (Latest commit 08a638a on Nov 23, 2017)
 # Required Sanae3D in the same location
 # *Update 2022/07/19: Rotate model to front, and fix textures not displaying
+# *Update 2022/08/13: Merge library
 
 from inc_noesis import *
 import noesis
 import rapi
-from Sanae3D.Sanae import SanaeObject
 
 def registerNoesisTypes():
     '''Register the plugin'''
@@ -31,10 +31,15 @@ def noepyLoadModel(data, mdlList):
     mdlList.append(mdl)
     return 1
 
-class MikuMikuDance_PMD(SanaeObject):
+class MikuMikuDance_PMD(object):
 
     def __init__(self, data):
-        super(MikuMikuDance_PMD, self).__init__(data)
+        self.inFile = NoeBitStream(data)
+        self.matList = []
+        self.texList = []
+    
+    def read_string(self, size):
+        return self.inFile.readBytes(size)
 
     def read_name(self, n):
 
