@@ -1,7 +1,9 @@
 # WARRNING!!! THIS IS FOR VIEWING ONLY! DON'T EXPORT BECAUSE IT CAN DESTROY YOUR ORIGINAL TEXTURES!!!
 # Modified from: https://github.com/atrzaska/noesis_py/blob/master/lib/plugins/fmt_MikuMikuDance_pmx.py
 # (Latest commit fd94e8c on Mar 22, 2021)
-# *Update 2022/07/19:
+# *Update:
+# 2022/08/17: In case the model does not have any texture
+# 2022/07/19:
 #   - Rotate model to front, and fix textures inside a subfolder not displaying
 #   - Fix wrong reading of additional UVs
 #   - Fix wrong textures if the model has duplicate material name
@@ -295,7 +297,10 @@ class PmxLoader:
             memo = self.readText()
             matFaceCount = bs.readInt()
 
-            material = NoeMaterial(str(i)+'-'+name, self.texList[textureIndex].name)
+            if textureIndex > -1:
+                material = NoeMaterial(str(i)+'-'+name, self.texList[textureIndex].name)
+            else:
+                material = NoeMaterial(str(i)+'-'+name, '')
             self.matList.append(material)
             dataSize = self.vertexIndexSize * matFaceCount
             endOffset = startOffset + dataSize
