@@ -1,7 +1,7 @@
 # Modified from: https://github.com/atrzaska/noesis_py/blob/master/lib/plugins/fmt_MikuMikuDance_pmd.py
 # (Latest commit 08a638a on Nov 23, 2017)
-# *Update 2022/07/19: Rotate model to front, and fix textures not displaying
 # *Update 2022/08/13: Merge library
+# *Update 2022/07/19: Rotate model to front, and fix textures not displaying
 
 from inc_noesis import *
 import noesis
